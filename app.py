@@ -5,7 +5,8 @@ import cv2
 import numpy as np
 from PIL import Image
 import io
-
+import gdown
+import os
 st.set_page_config(page_title="Retinal Vessel Segmentation", page_icon="👁️", layout="wide")
 
 st.markdown("""
@@ -74,10 +75,18 @@ class build_unet(nn.Module):
 
 
 @st.cache_resource
-def load_model(path):
+
+def load_model():
+    checkpoint_path = "checkpoint.pth"
+    # Download from Google Drive if not already present
+    if not os.path.exists(checkpoint_path):
+        with st.spinner("⬇️ Downloading model weights..."):
+            url = "https://drive.google.com/uc?id=1Y5kkrxGAC0745ls8vzTKlfnn9N8Wbdtm"
+            gdown.download(url, checkpoint_path, quiet=False)
+
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model  = build_unet().to(device)
-    ckpt   = torch.load(path, map_location=device)
+    ckpt   = torch.load(checkpoint_path, map_location=device)
     model.load_state_dict(ckpt['model_state'] if 'model_state' in ckpt else ckpt)
     model.eval()
     return model, device
@@ -117,7 +126,7 @@ with st.sidebar:
     </div>""", unsafe_allow_html=True)
 
 try:
-    model, device = load_model(checkpoint_path)
+    model, device = load_model()
     st.sidebar.success(f"✅ Model loaded  |  **{device}**")
 except Exception as e:
     st.sidebar.error(f"❌ Cannot load model:\n{e}")
