@@ -12,6 +12,12 @@ The model is trained on fundus images with corresponding manual vessel masks usi
 
 ---
 
+## 🌐 Live Demo
+👉 Streamlit App:  
+[Click here to try the demo](https://your-streamlit-app-link-here)
+
+---
+
 ## 🚀 Features
 - Custom U-Net implementation in PyTorch
 - Data augmentation using Albumentations
@@ -51,12 +57,6 @@ The model is trained on fundus images with corresponding manual vessel masks usi
 
 ## 🖼️ Sample Output
 The model predicts retinal blood vessels from unseen images with reasonable accuracy, capturing fine vascular structures.
-
----
-
-## 🌐 Live Demo
-👉 Streamlit App:  
-[Click here to try the demo](https://your-streamlit-app-link-here)
 
 ---
 
