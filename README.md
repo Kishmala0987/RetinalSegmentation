@@ -16,6 +16,7 @@ The model is trained on fundus images with corresponding manual vessel masks usi
 👉 Streamlit App:  
 [Click here to try the demo](https://retinalsegmentation.streamlit.app/)
 
+You can use the image uploaded in Repository for live testing
 ---
 
 ## 🚀 Features
