@@ -1,78 +1,140 @@
-# 👁️ Retinal Vessel Segmentation
 
-Automated segmentation of blood vessels in retinal fundus images using a U-Net architecture trained on the DRIVE dataset.
+# 🧠 Retinal Blood Vessel Segmentation using U-Net (PyTorch)
+
+A deep learning-based image segmentation project that detects retinal blood vessels from fundus images using a custom **U-Net architecture built in PyTorch**.
+
+---
+
+## 📌 Overview
+This project focuses on segmenting blood vessels in retinal images, a key step in diagnosing diseases like **diabetic retinopathy** and other ocular conditions.
+
+The model is trained on fundus images with corresponding manual vessel masks using a U-Net-based encoder-decoder architecture.
+
+---
+
+## 🚀 Features
+- Custom U-Net implementation in PyTorch
+- Data augmentation using Albumentations
+- Dice + BCE combined loss function
+- Image preprocessing and normalization pipeline
+- Evaluation using Accuracy, F1 Score, and IoU
+- Confusion matrix visualization
+- Single image prediction visualization
+
+---
+
+## 🧪 Dataset
+- Retinal fundus images (`.tif`)
+- Ground truth vessel masks (`.gif`)
+- Train/Test split: 20 images each (before augmentation)
+- After augmentation: ~4x expanded training dataset
+
+---
+
+## 🏗️ Model Architecture
+- Encoder–Decoder U-Net
+- 4-level downsampling encoder
+- Bottleneck with 512 feature maps
+- 4-level upsampling decoder with skip connections
+- Final 1×1 convolution for binary segmentation
+
+---
+
+## 📊 Results
+
+| Metric     | Score |
+|------------|-------|
+| Accuracy   | 95.7% |
+| F1 Score   | 0.74  |
+
+---
+
+## 🖼️ Sample Output
+The model predicts retinal blood vessels from unseen images with reasonable accuracy, capturing fine vascular structures.
 
 ---
 
 ## 🌐 Live Demo
-**[Try it on Streamlit →](https://retinalsegmentation.streamlit.app)**
+👉 Streamlit App:  
+[Click here to try the demo](https://your-streamlit-app-link-here)
 
 ---
 
-## 📊 Model Performance
-
-| Metric | Score |
-|---|---|
-| **Accuracy** | 95.79% |
-| **F1 / Dice Score** | 74.37% |
-| **IoU (Jaccard)** | 59.22% |
-
-### Per-Class Results
-
-| Class | Precision | Recall | F1 |
-|---|---|---|---|
-| Background | 0.97 | 0.98 | 0.98 |
-| Vessel | 0.77 | 0.72 | 0.75 |
-
-> Trained for 63 epochs — Train Accuracy: **99.31%** · Val Accuracy: **95.77%**
+## ⚙️ Limitations
+- Trained on a **small dataset**
+- Input size limited to **256×256**
+- Training done on **CPU (slow training)**
+- No pretrained backbone used
+- Class imbalance between background and vessel pixels
 
 ---
 
-## 🏗️ Architecture
+## 🚀 Future Improvements
+- Train on GPU with larger input resolution (512×512+)
+- Use pretrained encoders (ResNet / EfficientNet)
+- Experiment with Attention U-Net
+- Apply advanced loss functions (Focal / Tversky Loss)
+- Improve dataset size and diversity
+- Deploy full web app with backend API
+- Add explainability (Grad-CAM visualization)
 
-U-Net with 4 encoder/decoder levels:
+---
 
+## 🛠️ Tech Stack
+- Python 🐍  
+- PyTorch 🔥  
+- OpenCV 👁️  
+- Albumentations 🎨  
+- NumPy / Pandas  
+- Matplotlib / Seaborn  
+
+---
+
+## 📂 Project Structure
 ```
-Input (3×256×256)
-    → Encoder: 32 → 64 → 128 → 256
-    → Bottleneck: 512
-    → Decoder: 256 → 128 → 64 → 32
-    → Output (1×256×256)
-```
 
-- **Loss:** DiceBCE Loss with class weights (pos_weight = 10.4)
-- **Optimizer:** Adam (lr = 1e-4)
-- **Scheduler:** ReduceLROnPlateau (patience = 5)
+├── data/
+├── new_data/
+├── models/
+├── train.py
+├── dataset.py
+├── model.py
+├── losses.py
+└── README.md
 
----
-
-<img width="1474" height="533" alt="image" src="https://github.com/user-attachments/assets/a27ee171-501d-4715-964a-07475a76b8ca" />
----
-## 🗂️ Dataset
-
-**DRIVE** (Digital Retinal Images for Vessel Extraction)
-- 20 training images · 20 test images
-- Augmented to 80 training samples (flip, rotate)
-- Resolution: 256×256
+````
 
 ---
 
-## 🚀 Run Locally
+## ▶️ How to Run
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/retinalsegmentation
-cd retinalsegmentation
+git clone https://github.com/your-username/retina-unet-segmentation.git
+cd retina-unet-segmentation
+
 pip install -r requirements.txt
-streamlit run app.py
+
+python train.py
+````
+
+---
+
+## 💡 Key Insight
+
+Even with a small dataset and CPU-based training, U-Net performs strongly in segmenting complex medical structures like retinal vessels.
+
+---
+
+## 📬 Contact
+
+If you have suggestions or improvements, feel free to reach out or open an issue.
+
 ```
 
 ---
 
-## 🏥 Clinical Relevance
-
-Retinal vessels are direct indicators of:
-- **Diabetic Retinopathy** — leading cause of blindness
-- **Hypertension** — vessel narrowing patterns
-- **Cardiovascular disease** — arteriovenous ratio changes
-
-Manual screening takes 30–60 min per image and requires trained specialists. This model segments vessels in **seconds**, enabling mass screening in low-resource settings.
+If you want, I can next:
+- add **badges (PyTorch, accuracy, license, etc.)**
+- make it **more “top GitHub trending project style”**
+- or help you **write repo description + pinned post for LinkedIn**
+```
